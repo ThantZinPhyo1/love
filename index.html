@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        text-align: center;
+    }
+
+    #game-container {
+        margin: 50px auto;
+        padding: 20px;
+        border: 2px solid #333;
+        width: 300px;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #result {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div id="game-container">
+    <h1>Card Game TZP</h1>
+    <button onclick="play()">Draw Cards</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function play() {
+        const playerCard = drawCard();
+        const computerCard = drawCard();
+
+        const resultText = `Player drew: ${playerCard}. Computer drew: ${computerCard}.`;
+
+        let result;
+        if (playerCard.value > computerCard.value) {
+            result = "ကိုယ်မေကိုလိုး!";
+        } else if (playerCard.value < computerCard.value) {
+            result = "ငါလိုးမသား!";
+        } else {
+            result = "ချစ်တယ်";
+        }
+
+        document.getElementById('result').innerHTML = `<p>${resultText}</p><p>${result}</p>`;
+    }
+
+    function drawCard() {
+        const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+        const randomSuit = suits[Math.floor(Math.random() * suits.length)];
+        const randomValue = values[Math.floor(Math.random() * values.length)];
+
+        return {
+            suit: randomSuit,
+            value: getValue(randomValue)
+        };
+    }
+
+    function getValue(value) {
+        if (value === 'A') {
+            return 14;
+        } else if (value === 'K') {
+            return 13;
+        } else if (value === 'Q') {
+            return 12;
+        } else if (value === 'J') {
+            return 11;
+        } else {
+            return parseInt(value);
+        }
+    }
+</script>
+</body>
+</html>
